@@ -11,7 +11,7 @@ public class MazeGenerator : MonoBehaviour {
   private const int ALL = LEFT | UP | RIGHT | DOWN;
 
   public GameObject wallPrefab;
-  public GameObject floor;
+  public Transform ground;
 
   private int[,] cells;
   private RandomQueue<int[]> queueWays;
@@ -54,24 +54,31 @@ public class MazeGenerator : MonoBehaviour {
   }
 
   private void addWalls() {
-    float cellSize = wallPrefab.transform.localScale.x;
-    float elevation = wallPrefab.transform.localPosition.y;
+    float cellSize = wallPrefab.transform.localScale.x - wallPrefab.transform.localScale.z;
+    float y = wallPrefab.transform.localPosition.y;
+    Quaternion[] rots = {Quaternion.identity, Quaternion.Euler(0, 90, 0)};
     for (int i = 0; i < size; i++) {
       for (int j = 0; j < size; j++) {
-        int x = j - size / 2;
-        int z = i - size / 2;
+        int x = j - size / 2, z = i - size / 2;
         if ((cells[i, j] & LEFT) != 0) {
-          Vector3 position = new Vector3(x * cellSize, elevation, (z - 0.5f) * cellSize);
-          Quaternion rotation = Quaternion.Euler(0, 0, 0);
-          Instantiate(wallPrefab, position, rotation);
+          Vector3 position = new Vector3(x * cellSize, y, (z - 0.5f) * cellSize);
+          Instantiate(wallPrefab, position, rots[0]);
         }
         if ((cells[i, j] & UP) != 0) {
-          Vector3 position = new Vector3((x - 0.5f) * cellSize, elevation, z * cellSize);
-          Quaternion rotation = Quaternion.Euler(0, 90, 0);
-          Instantiate(wallPrefab, position, rotation);
+          Vector3 position = new Vector3((x - 0.5f) * cellSize, y, z * cellSize);
+          Instantiate(wallPrefab, position, rots[1]);
         }
       }
     }
+    Vector3 scale = wallPrefab.transform.localScale;
+    scale.x = size * cellSize + scale.z;
+    float offset = size / 2f * cellSize;
+    for(int i = 0; i < 4; i++) {
+      Vector3 pos = new Vector3(offset * (i % 2) * (i - 2), y, offset * ((i + 1) % 2 * (i - 1)));
+      GameObject wall = Instantiate(wallPrefab, pos, rots[i % 2]);
+      wall.transform.localScale = scale;
+    }
+    ground.localScale = new Vector3(size * cellSize, ground.localScale.y, size * cellSize);
   }
 
   private int[] getNeighbor(int[] cell, int direction) {
@@ -120,14 +127,4 @@ public class MazeGenerator : MonoBehaviour {
       queueWays.add(new int[] {cell[0], cell[1], DOWN});
     }
   }
-
-  private void printMaze() {
-    Debug.Log("---");
-    for (int i = 0; i < size; i++) {
-      for (int j = 0; j < size; j++) {
-        Debug.Log(i + "," + j + ":" + cells[i, j]);
-      }
-    }
-  }
-
 }
