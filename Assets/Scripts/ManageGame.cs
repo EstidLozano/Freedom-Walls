@@ -3,17 +3,30 @@ using UnityEngine.SceneManagement;
 public class ManageGame : MonoBehaviour {
   public GameObject player;
   public Follow cameraFollow;
-  private bool hasEnded = false;
+  public CvsCtrl cvsCtrl;
+  public bool playing = true;
   private Vector3 playerInitPos;
   void Start() {
     playerInitPos = player.transform.position;
   }
   public void gameOver() {
-    if (!hasEnded) {
-      hasEnded = true;
+    if (playing) {
+      playing = false;
       cameraFollow.enabled = false;
       player.GetComponent<Move>().enabled = false;
       Invoke("restart", 2f);
+    }
+  }
+  public void finish() {
+    if (playing) {
+      playing = false;
+      cvsCtrl.enabled = false;
+      float score = CvsCtrl.time;
+      float record = PlayerPrefs.GetFloat("highscore", -1);
+      if (score < record || record == -1) {
+        PlayerPrefs.SetFloat("highscore", score);
+      }
+      SceneManager.LoadScene("Win");
     }
   }
   void restart() {
@@ -24,6 +37,7 @@ public class ManageGame : MonoBehaviour {
     rb.angularVelocity = Vector3.zero;
     cameraFollow.enabled = true;
     player.GetComponent<Move>().enabled = true;
-    hasEnded = false;
+    cvsCtrl.enabled = true;
+    playing = false;
   }
 }

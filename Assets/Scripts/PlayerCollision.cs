@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 public class PlayerCollision : MonoBehaviour {
   public CameraShake cameraShake;
+  public ParticleSystem particleRay;
   Move Move;
   Rigidbody rb;
   void Start() {
@@ -9,20 +10,23 @@ public class PlayerCollision : MonoBehaviour {
   }
   void OnCollisionEnter(Collision col) {
     string tag = col.gameObject.tag;
-    if (tag == "Ground") {
-      Move.setInGround(true);
-    } else if (tag == "Obstacle" || tag == "Wall") {
+    if (tag == "Wall") {
       ContactPoint contact = col.contacts[0];
       Vector3 reflect = Vector3.Reflect(rb.velocity, contact.normal);
       rb.velocity = reflect;
-      StartCoroutine(cameraShake.shake(1f, 0.1f));
       // rb.rotation = Quaternion.LookRotation(-reflect);
+      StartCoroutine(cameraShake.shake(1f, 0.1f));
       FindObjectOfType<ManageGame>().gameOver();
     }
   }
-  void OnCollisionExit(Collision col) {
-    if(col.gameObject.tag == "Ground") {
-      Move.setInGround(false);
+
+  void OnTriggerEnter(Collider col) {
+    string tag = col.gameObject.tag;
+    if (tag == "Ray") {
+      // Instantiate(particleRay, col.ClosestPointOnBounds(transform.position), Quaternion.identity);
+      FindObjectOfType<ManageGame>().gameOver();
+    } else if (tag == "Finish") {
+      FindObjectOfType<ManageGame>().finish();
     }
   }
 }

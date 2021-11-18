@@ -6,7 +6,8 @@ TagManager:
   tags:
   - Wall
   - Obstacle
-  - Ground
+  - Mark
+  - Ray
   layers:
   - Default
   - TransparentFX

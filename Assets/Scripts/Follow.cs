@@ -6,9 +6,8 @@ public class Follow : MonoBehaviour {
   public Vector3 offset;
   void LateUpdate() {
     float dt = Mathf.Clamp(Time.deltaTime, 0.0001f, 0.1f);
-    Vector3 pos = target.position + (Quaternion.Euler(0, playerMove.yRot, 0) * offset);
+    Vector3 pos = target.position + (target.rotation * offset);
     transform.position = Vector3.Lerp(transform.position, pos, dt * movSpeed);
-    Quaternion dir = Quaternion.LookRotation(target.position - transform.position);
-    transform.rotation = Quaternion.Slerp(transform.rotation, dir, dt * rotSpeed);
+    transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, dt * rotSpeed);
   }
 }
