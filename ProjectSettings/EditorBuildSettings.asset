@@ -15,8 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Win.unity
     guid: 0f19060649c4664478b4be20b88a3667
   - enabled: 1
-    path: Assets/Scenes/Settings.unity
-    guid: 199710c92c0e34ed081ea916cd91d9c9
+    path: Assets/Scenes/Tutorial.unity
+    guid: 69d0297542e98504facd78e93ffd7804
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: fe420282ff8834f4cbbc0c2e4b79cded

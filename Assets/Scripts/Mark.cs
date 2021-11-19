@@ -7,7 +7,7 @@ public class Mark : MonoBehaviour {
     marks = new LinkedList<GameObject>();
   }
   void Update() {
-    if (Input.GetKeyDown("space")) {
+    if (Input.GetKeyDown("v")) {
       if (marks.Count == 0) {
         Instantiate(markPrefab, transform.position, Quaternion.identity);
       } else {

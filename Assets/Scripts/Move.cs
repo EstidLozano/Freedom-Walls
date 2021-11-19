@@ -1,7 +1,7 @@
 using UnityEngine;
 public class Move : MonoBehaviour {
-  private float mouseSensitivity = 50f;
-  private float speed = 200f;
+  public static float mouseSensitivity = 50f;
+  private float speed = 300f;
   private Rigidbody rb;
   void Start() {
     rb = GetComponent<Rigidbody>();

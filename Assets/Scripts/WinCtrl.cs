@@ -8,10 +8,10 @@ public class WinCtrl : MonoBehaviour {
   public Button btnPlay, btnBack;
   void Start() {
     float score = CvsCtrl.time;
-    string key = "Time" + FindObjectOfType<MazeGenerator>().size;
+    string key = "Time" + MazeGenerator.size;
     float record = PlayerPrefs.GetFloat(key);
-    txtScore.text = "Score: " +  score.ToString("F2");
-    txtRecord.text = "Record: " +  record.ToString("F2");
+    txtScore.text = "Tiempo: " +  score.ToString("F2");
+    txtRecord.text = "Mejor Tiempo: " +  record.ToString("F2");
     btnPlay.onClick.AddListener(() => {
       SceneManager.LoadScene("Game");
     });

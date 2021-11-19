@@ -3,10 +3,13 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Home : MonoBehaviour {
-  public Button btnPlay, btnSettings, btnCredits, btnExit;
+  public Button btnPlay, btnTutorial, btnCredits, btnExit;
   void Start() {
     btnPlay.onClick.AddListener(() => {
       SceneManager.LoadScene("Game");
+    });
+    btnTutorial.onClick.AddListener(() => {
+      SceneManager.LoadScene("Tutorial");
     });
     btnCredits.onClick.AddListener(() => {
       SceneManager.LoadScene("Credits");

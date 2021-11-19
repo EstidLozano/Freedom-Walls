@@ -4,9 +4,10 @@ public class ManageGame : MonoBehaviour {
   public GameObject player;
   public Follow cameraFollow;
   public CvsCtrl cvsCtrl;
-  public bool playing = true;
+  public static bool playing = true;
   private Vector3 playerInitPos;
   void Start() {
+    playing = true;
     playerInitPos = player.transform.position;
   }
   public void gameOver() {
@@ -22,7 +23,7 @@ public class ManageGame : MonoBehaviour {
       playing = false;
       cvsCtrl.enabled = false;
       float score = CvsCtrl.time;
-      string key = "Time" + FindObjectOfType<MazeGenerator>().size;
+      string key = "Time" + MazeGenerator.size;
       float record = PlayerPrefs.GetFloat(key, -1);
       if (score < record || record == -1) {
         PlayerPrefs.SetFloat(key, score);
@@ -39,6 +40,6 @@ public class ManageGame : MonoBehaviour {
     cameraFollow.enabled = true;
     player.GetComponent<Move>().enabled = true;
     cvsCtrl.enabled = true;
-    playing = false;
+    playing = true;
   }
 }

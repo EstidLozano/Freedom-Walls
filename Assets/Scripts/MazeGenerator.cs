@@ -2,7 +2,7 @@
 using UnityEngine;
 public class MazeGenerator : MonoBehaviour {
 
-  public int size;
+  public static int size = 3;
 
   private const int LEFT = 1, UP = 2, RIGHT = 4, DOWN = 8, FRONT = 16, BACK = 32;
   private const int ALL = LEFT | UP | RIGHT | DOWN | FRONT | BACK;

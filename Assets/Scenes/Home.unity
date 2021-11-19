@@ -1383,7 +1383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btnPlay: {fileID: 718952020}
-  btnSettings: {fileID: 163484781}
+  btnTutorial: {fileID: 163484781}
   btnCredits: {fileID: 1267141187}
   btnExit: {fileID: 468572430}
 --- !u!224 &4977018769473721068
