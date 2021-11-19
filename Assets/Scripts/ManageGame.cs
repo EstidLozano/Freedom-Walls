@@ -22,9 +22,10 @@ public class ManageGame : MonoBehaviour {
       playing = false;
       cvsCtrl.enabled = false;
       float score = CvsCtrl.time;
-      float record = PlayerPrefs.GetFloat("highscore", -1);
+      string key = "Time" + FindObjectOfType<MazeGenerator>().size;
+      float record = PlayerPrefs.GetFloat(key, -1);
       if (score < record || record == -1) {
-        PlayerPrefs.SetFloat("highscore", score);
+        PlayerPrefs.SetFloat(key, score);
       }
       SceneManager.LoadScene("Win");
     }
