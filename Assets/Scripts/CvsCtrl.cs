@@ -38,7 +38,7 @@ public class CvsCtrl : MonoBehaviour {
     Move.mouseSensitivity = scrollSensivity.value * 50f + 25f;
     scrollSensivity.onValueChanged.AddListener((float value) => {
       Move.mouseSensitivity = value * 50f + 25f;
-      PlayerPrefs.SetFloat("MouseSensivity", Move.mouseSensitivity);
+      PlayerPrefs.SetFloat("MouseSensivity", value);
     });
 
   }
